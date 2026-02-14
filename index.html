@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="NexaBuild Landing Page - Modern web solutions built with precision.">
+    <title>NexaBuild Landing</title>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#0a0b0f">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <style>
+        /* CSS Custom Properties for Theming */
+        :root {
+            --primary-cyan: #22d3ee;
+            --dark-bg: #0a0b0f;
+            --card-bg: #111318;
+            --text-light: rgba(255, 255, 255, 0.9);
+            --text-muted: rgba(255, 255, 255, 0.7);
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --border-radius-lg: 16px;
+            --border-radius-md: 12px;
+            --spacing-xs: 4px;
+            --spacing-sm: 8px;
+            --spacing-md: 16px;
+            --spacing-lg: 24px;
+            --spacing-xl: 48px;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+            --shadow-card: 0 1px 0 rgba(255,255,255,0.02) inset, 0 0 0 1px var(--border-subtle), 0 2px 8px rgba(0,0,0,0.1), 0 20px 30px rgba(0,0,0,0.2);
+            --shadow-button-hover: 0 0 0 3px rgba(34, 211, 238, 0.3);
+        }
+
+        /* Base Styles & Reset */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%; /* Prevent text size adjustment on mobile */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            opacity: 0; /* Hidden initially for fade-in animation */
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        /* Fade-in animation for body */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Accessibility: Skip to main content link */
+        .skip-link {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+            background-color: var(--primary-cyan);
+            color: var(--dark-bg);
+            padding: var(--spacing-sm) var(--spacing-md);
+            z-index: 1000;
+            text-decoration: none;
+            border-radius: var(--border-radius-md);
+            transition: top 0.3s ease, left 0.3s ease;
+        }
+        .skip-link:focus {
+            top: var(--spacing-sm);
+            left: var(--spacing-sm);
+            outline: 2px solid var(--primary-cyan);
+            outline-offset: 2px;
+        }
+
+        /* Global Container for content centering */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+        }
+
+        /* Header (Navigation) Styling */
+        .header {
+            padding: var(--spacing-md) 0;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-light);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+        .logo svg {
+            width: 28px;
+            height: 28px;
+            fill: var(--primary-cyan);
+            transition: transform 0.3s ease;
+        }
+        .logo:hover svg {
+            transform: rotate(10deg);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: var(--spacing-lg);
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            padding: var(--spacing-xs) 0;
+            transition: color 0.3s ease, border-bottom 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-cyan);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a:focus {
+            color: var(--primary-cyan);
+            outline: none; /* Remove default focus outline */
+        }
+        .nav-links a:hover::after, .nav-links a:focus::after {
+            width: 100%;
+        }
+
+        /* Hero Section Styling */
+        .hero {
+            flex-grow: 1; /* Allows hero to take available space */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: var(--spacing-xl) 0;
+            background: radial-gradient(circle at center, rgba(34, 211, 238, 0.08) 0%, transparent 50%);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            animation: slideInUp 0.8s ease-out forwards;
+            animation-delay: 0.2s; /* Delay for content to appear after body fade-in */
+            opacity: 0; /* Hidden initially for slide-in animation */
+        }
+
+        /* Slide-in-up animation for hero content */
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem); /* Responsive font size */
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+            background: linear-gradient(90deg, var(--primary-cyan), #a5f3fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 2.5vw, 1.35rem); /* Responsive font size */
+            color: var(--text-muted);
+            margin-bottom: var(--spacing-xl);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Button Styling */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-md) var(--spacing-lg);
+            border: 2px solid var(--primary-cyan);
+            border-radius: var(--border-radius-md);
+            background: linear-gradient(45deg, var(--primary-cyan) 0%, rgba(34, 211, 238, 0.7) 100%);
+            color: var(--dark-bg);
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+            box-shadow: var(--shadow-md), 0 0 20px rgba(34, 211, 238, 0.4);
+            position: relative;
+            overflow: hidden; /* Important for ripple effect */
+            z-index: 1; /* Ensures button is above ripple */
+        }
+
+        .btn:hover, .btn:focus {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg), var(--shadow-button-hover), 0 0 30px rgba(34, 211, 238, 0.6);
+            background: linear-gradient(45deg, #a5f3fc 0%, var(--primary-cyan) 100%);
+            outline: none; /* Remove default focus outline */
+        }
+
+        .btn:active {
+            transform: translateY(0);
+            box-shadow: var(--shadow-sm), 0 0 10px rgba(34, 211, 238, 0.3);
+            background: linear-gradient(45deg, rgba(34, 211, 238, 0.7) 0%, var(--primary-cyan) 100%);
+        }
+
+        /* General Section Styling */
+        .section {
+            padding: var(--spacing-xl) 0;
+            text-align: center;
+            background-color: var(--dark-bg); /* Ensure consistent background */
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 4vw, 3rem); /* Responsive font size */
+            font-weight: 700;
+            margin-bottom: var(--spacing-lg);
+            color: var(--text-light);
+            background: linear-gradient(90deg, #a5f3fc, var(--primary-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-subtitle {
+            font-size: clamp(0.9rem, 2vw, 1.1rem); /* Responsive font size */
+            color: var(--text-muted);
+            margin-bottom: var(--spacing-xl);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Feature Cards Grid Layout */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid */
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-xl);
+        }
+
+        .feature-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-xl);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: var(--shadow-card);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            backdrop-filter: blur(5px); /* Glassmorphism effect */
+            -webkit-backdrop-filter: blur(5px); /* Safari support */
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 1px 0 rgba(255,255,255,0.04) inset, 0 0 0 1px var(--primary-cyan), 0 4px 15px rgba(0,0,0,0.15), 0 25px 40px rgba(0,0,0,0.3);
+        }
+        .feature-card:focus-within {
+            outline: 2px solid var(--primary-cyan);
+            outline-offset: 4px;
+        }
+
+        .feature-card .icon {
+            width: 64px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(45deg, rgba(34, 211, 238, 0.2), rgba(34, 211, 238, 0.05));
+            border-radius: var(--border-radius-md);
+            margin-bottom: var(--spacing-lg);
+            border: 1px solid rgba(34, 211, 238, 0.2);
+        }
+
+        .feature-card .icon svg {
+            width: 32px;
+            height: 32px;
+            fill: var(--primary-cyan);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+            color: var(--text-light);
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        /* Footer Styling */
+        .footer {
+            padding: var(--spacing-xl) 0;
+            text-align: center;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-subtle);
+            margin-top: var(--spacing-xl);
+        }
+
+        .footer p {
+            font-size: 0.9rem;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .footer .social-links {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-lg);
+        }
+
+        .footer .social-links a {
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: color 0.3s ease, transform 0.2s ease;
+            padding: var(--spacing-xs); /* For better click area */
+        }
+
+        .footer .social-links a:hover, .footer .social-links a:focus {
+            color: var(--primary-cyan);
+            transform: translateY(-2px);
+            outline: none;
+        }
+
+        /* Responsive adjustments (Mobile-first approach means base styles are for mobile) */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: var(--spacing-md);
+            }
+
+            .nav-links {
+                gap: var(--spacing-md);
+            }
+
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero p {
+                font-size: 1.05rem;
+            }
+
+            .section {
+                padding: var(--spacing-lg) 0;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr; /* Stack cards on small screens */
+            }
+
+            .feature-card {
+                padding: var(--spacing-lg);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: var(--spacing-sm);
+            }
+            .container {
+                padding: 0 var(--spacing-sm);
+            }
+        }
+    </style>
+
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta name="theme-color" content="#0a0b0f">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="nexa-landing-demo">
+  <link rel="apple-touch-icon" href="/icon-192.svg">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="header">
+        <div class="container navbar">
+            <a href="#" class="logo" aria-label="NexaBuild Home">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <!-- NexaBuild Logo Icon (Abstract Building/Hexagon) -->
+                    <path d="M12 2L2 7V17L12 22L22 17V7L12 2ZM12 4.472L18.816 8.04V15.96L12 19.528L5.184 15.96V8.04L12 4.472ZM12 11L17 8.5L12 6L7 8.5L12 11ZM12 13.5L7 11L12 8.5L17 11L12 13.5ZM12 16L7 13.5L12 11L17 13.5L12 16Z" fill="currentColor"/>
+                </svg>
+                NexaBuild
+            </a>
+            <nav aria-label="Main Navigation">
+                <ul class="nav-links">
+                    <li><a href="#hero" aria-label="Scroll to Hero Section">Home</a></li>
+                    <li><a href="#features" aria-label="Scroll to Features Section">Features</a></li>
+                    <li><a href="#" aria-label="Contact Us">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <section id="hero" class="hero">
+            <div class="container hero-content">
+                <h1>Elevate Your Digital Presence</h1>
+                <p>Experience modern web solutions crafted with precision, passion, and a commitment to cutting-edge design and performance.</p>
+                <a href="#features" class="btn ripple" aria-label="Explore our features">Get Started</a>
+            </div>
+        </section>
+
+        <section id="features" class="section">
+            <div class="container">
+                <h2 class="section-title">Why Choose NexaBuild?</h2>
+                <p class="section-subtitle">We focus on delivering stunning aesthetics, robust performance, and an intuitive user experience across all devices.</p>
+                <div class="features-grid">
+                    <div class="feature-card" role="article" aria-labelledby="feature-1-title" tabindex="0">
+                        <div class="icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2C6.48 2 2 6.48 2 12S6.48 22 12 22 22 17.52 22 12 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12S7.59 4 12 4 20 7.59 20 12 16.41 20 12 20ZM12.5 7H11V13L16.25 16.15L17 14.92L12.5 12.25V7Z" fill="currentColor"/>
+                            </svg>
+                        </div>
+                        <h3 id="feature-1-title">Blazing Fast Performance</h3>
+                        <p>Optimized code and efficient design ensure your website loads in a flash, keeping users engaged.</p>
+                    </div>
+                    <div class="feature-card" role="article" aria-labelledby="feature-2-title" tabindex="0">
+                        <div class="icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2C6.48 2 2 6.48 2 12S6.48 22 12 22 22 17.52 22 12 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12S7.59 4 12 4 20 7.59 20 12 16.41 20 12 20ZM17 9.5C17 10.33 16.33 11 15.5 11S14 10.33 14 9.5 14.67 8 15.5 8 17 8.67 17 9.5ZM7 9.5C7 10.33 6.33 11 5.5 11S4 10.33 4 9.5 4.67 8 5.5 8 7 8.67 7 9.5ZM12 17.5C14.33 17.5 16.33 16.04 17.16 14H6.84C7.67 16.04 9.67 17.5 12 17.5Z" fill="currentColor"/>
+                            </svg>
+                        </div>
+                        <h3 id="feature-2-title">Stunning UI/UX Design</h3>
+                        <p>Crafted with a keen eye for aesthetics, ensuring a visually appealing and intuitive user experience.</p>
+                    </div>
+                    <div class="feature-card" role="article" aria-labelledby="feature-3-title" tabindex="0">
+                        <div class="icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17 1.01L7 1C5.9 1 5 1.9 5 3V21C5 22.1 5.9 23 7 23H17C18.1 23 19 22.1 19 21V3C19 1.9 18.1 1.01 17 1.01ZM17 19H7V5H17V19ZM12 17C12.5523 17 13 16.5523 13 16C13 15.4477 12.5523 15 12 15C11.4477 15 11 15.4477 11 16C11 16.5523 11.4477 17 12 17Z" fill="currentColor"/>
+                            </svg>
+                        </div>
+                        <h3 id="feature-3-title">Fully Responsive</h3>
+                        <p>Your website will look flawless and function perfectly on any device, from mobiles to large desktops.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; <span id="current-year"></span> NexaBuild. All rights reserved.</p>
+            <div class="social-links" role="navigation" aria-label="Social Media Links">
+                <a href="#" aria-label="Visit NexaBuild on X (formerly Twitter)">X</a>
+                <a href="#" aria-label="Visit NexaBuild on LinkedIn">in</a>
+                <a href="#" aria-label="Visit NexaBuild on GitHub">GH</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set current year in footer
+            try {
+                const currentYearElement = document.getElementById('current-year');
+                if (currentYearElement) {
+                    currentYearElement.textContent = new Date().getFullYear();
+                }
+            } catch (error) {
+                console.error("Error setting current year:", error);
+            }
+
+            // Smooth scroll for internal links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                        // Update URL hash without jumping, for better UX and direct linking
+                        if (history.pushState) {
+                            history.pushState(null, null, targetId);
+                        } else {
+                            window.location.hash = targetId;
+                        }
+                    }
+                });
+            });
+
+            // Button Ripple Effect
+            document.querySelectorAll('.btn.ripple').forEach(button => {
+                button.addEventListener('click', function (e) {
+                    const buttonRect = this.getBoundingClientRect();
+                    const diameter = Math.max(buttonRect.width, buttonRect.height);
+                    const radius = diameter / 2;
+
+                    const ripple = document.createElement('span');
+                    ripple.style.width = ripple.style.height = `${diameter}px`;
+                    ripple.style.left = `${e.clientX - buttonRect.left - radius}px`;
+                    ripple.style.top = `${e.clientY - buttonRect.top - radius}px`;
+                    ripple.classList.add('ripple-effect');
+
+                    // Remove any existing ripple to allow animation restart on rapid clicks
+                    const existingRipple = this.querySelector('.ripple-effect');
+                    if (existingRipple) {
+                        existingRipple.remove();
+                    }
+
+                    this.appendChild(ripple);
+
+                    // Trigger reflow to ensure animation restarts
+                    ripple.offsetWidth; 
+                    ripple.classList.add('animate');
+
+                    // Remove ripple after animation ends
+                    ripple.addEventListener('animationend', () => {
+                        ripple.remove();
+                    }, { once: true });
+                });
+            });
+            
+            // Inject custom ripple CSS for dynamic effect
+            if (!document.getElementById('ripple-styles')) {
+                const style = document.createElement('style');
+                style.id = 'ripple-styles';
+                style.textContent = `
+                    .ripple-effect {
+                        position: absolute;
+                        border-radius: 50%;
+                        background-color: rgba(255, 255, 255, 0.3);
+                        transform: scale(0);
+                        opacity: 1;
+                        pointer-events: none;
+                        z-index: 0; /* Ensure ripple is behind text */
+                    }
+
+                    .ripple-effect.animate {
+                        animation: ripple-animation 0.6s linear;
+                    }
+
+                    @keyframes ripple-animation {
+                        to {
+                            transform: scale(2.5); /* Increase scale to cover button */
+                            opacity: 0;
+                        }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        });
+    </script>
+
+    <!-- PWA Script - CRITICAL PWA REQUIREMENTS - Must be before <script>if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('/sw.js');});}</script>
+</body> -->
+    <script>
+    (function(){
+      var m={name:"NexaBuild Landing",short_name:"NBL",start_url:".",display:"standalone",theme_color:"#0a0b0f",background_color:"#0a0b0f",icons:[{src:"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%2322d3ee' width='100' height='100' rx='20'/><text x='50' y='68' text-anchor='middle' fill='white' font-size='50' font-family='sans-serif' font-weight='bold'>N</text></svg>",sizes:"512x512",type:"image/svg+xml"}]};
+      var b=new Blob([JSON.stringify(m)],{type:"application/json"});
+      var l=document.createElement("link");l.rel="manifest";l.href=URL.createObjectURL(b);document.head.appendChild(l);
+      if("serviceWorker"in navigator){var sw="self.addEventListener('install',function(e){e.waitUntil(caches.open('v1').then(function(c){return c.addAll(['/'])}));self.skipWaiting()});self.addEventListener('fetch',function(e){e.respondWith(caches.match(e.request).then(function(r){return r||fetch(e.request)}))})";var sb=new Blob([sw],{type:"application/javascript"});navigator.serviceWorker.register(URL.createObjectURL(sb)).catch(function(error){console.error('Service Worker registration failed:', error);});}
+    })();
+    </script>
+</body>
+</html>
